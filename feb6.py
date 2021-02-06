@@ -1,3 +1,6 @@
+from critical_clique import CriticalClique
+import networkx as nx
+
 G = {
 	0: {1},
 	1: {0, 3, 4},
@@ -45,3 +48,5 @@ def make_connected_comp_clique(graph, comps):
 # cc = get_connected_comp(G)
 # make_connected_comp_clique(G, cc)
 # print(G)
+
+print(CriticalClique(nx.Graph(G)).num_critical()[1])

@@ -28,25 +28,27 @@ class CriticalClique:
 
 	def num_critical(self):
 		visited, count = set(), 0
+		criticals = []
 		for node in self._graph.adj.keys():
 			if node in visited:
 				continue
 			_set = self._get_critical(node)
 			if len(_set):
 				count += 1
+				criticals.append(_set)
 			visited |= _set
-		return count
+		return count, criticals
 
 
 
 
 
-import networkx as nx
-# same example as explained in meet
-G = nx.Graph([(1,2), (2,3), (3,4), (4,5), (5,6), (6,1), (6,2), (1,5),(5,2), (5,3), (2,4)])
-G = CriticalClique(G)
-print('Critical Clique having node 3: ', G._get_critical(3))
-print(f'Num of critical cliques: {G.num_critical()}')
+# import networkx as nx
+# # same example as explained in meet
+# G = nx.Graph([(1,2), (2,3), (3,4), (4,5), (5,6), (6,1), (6,2), (1,5),(5,2), (5,3), (2,4)])
+# G = CriticalClique(G)
+# print('Critical Clique having node 3: ', G._get_critical(3))
+# print(f'Num of critical cliques: {G.num_critical()}')
 # print(G.adj)
 
 '''
