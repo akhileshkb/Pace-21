@@ -47,8 +47,8 @@ def cost_minus(G, node, nodes):
 
 def sorting_cost(u, v, G):
 	u_neigh, v_neigh = set(G.adj[u]), set(G.adj[v])
-	if pair in G.edges:
-		return u_neigh.intersection(v_neigh)*2 + 1
+	if (u, v) in G.edges:
+		return u_neigh.intersection(v_neigh).__len__()*2 + 1
 	else:
 		all_nodes = u_neigh.union(v_neigh).union({u, v})
 		_cnt = 0
@@ -124,4 +124,4 @@ G = {
 G = nx.Graph(G)
 
 
-print(RN(G))
+print(get_edges(Greedy(G, 1), G))
