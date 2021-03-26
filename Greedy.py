@@ -3,6 +3,7 @@ from collections import defaultdict
 from math import inf
 from functools import reduce
 import networkx as nx
+import time
 
 """
 Assumptions: 
@@ -87,9 +88,13 @@ def Greedy(G, k=0):
 def get_edges(edges, G):
 	modified_edges = []
 	marked = []
+
+	start_time = time.time()
 	# run(karde)
 	for edge in edges:
 		u, v, _cost = edge
+		if time.time() - start_time > 500:
+			break
 		if u in marked:
 			continue
 		if v in marked:
