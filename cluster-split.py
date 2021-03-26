@@ -18,7 +18,7 @@ def ClusterSplit(G,cluster):
     for c in cluster:
         cost = 0
         for i in c:
-            cost += cost_plus(G,i,c-{i})
+            cost += cost_plus(G,i,set(G.nodes)-c)
         if best < cost:
             C = c
             best = cost
