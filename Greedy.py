@@ -44,7 +44,6 @@ def cost_minus(G, node, nodes):
 
 	return len(cur - nodes)
 
-
 def sorting_cost(u, v, G):
 	u_neigh, v_neigh = set(G.adj[u]), set(G.adj[v])
 	if (u, v) in G.edges:
@@ -71,22 +70,30 @@ def Greedy(G, k=0):
 	"""
 
 	nodes = list(G.nodes)
-	pairs_of_nodes = [(x, y, sorting_cost(x, y, G)) for x in nodes for y in nodes if x != y]
+	pair_nodes = [(x, y) for x in nodes for y in nodes if x != y]
+	pairs_nodes = {tuple(item) for item in map(sorted, pair_nodes)}
+	pairs_of_nodes = [(x, y, sorting_cost(x, y, G)) for x, y in pairs_nodes]
+	
 	pairs_of_nodes.sort(key = lambda x: x[-1])
 
-	for index, edge in enumerate(pairs_of_nodes):
-		if k < edge[-1]:
-			return pairs_of_nodes[:index]
-		k -= edge[-1]
+	# for index, edge in enumerate(pairs_of_nodes):
+		# if k < edge[-1]:
+			# return pairs_of_nodes[:index]
+		# k -= edge[-1]
 
 	return pairs_of_nodes
 
 
 def get_edges(edges, G):
 	modified_edges = []
+	marked = []
 	# run(karde)
 	for edge in edges:
 		u, v, _cost = edge
+		if u in marked:
+			continue
+		if v in marked:
+			continue
 
 		# if (u, v) exists as edge
 		if v in G.adj[u]:
@@ -94,7 +101,9 @@ def get_edges(edges, G):
 			neighbour_nodes = set(G.adj[u]).intersection(set(G.adj[v]))
 			for node in neighbour_nodes:
 				modified_edges.extend([(node, u), (node, v)])
+				marked.append(node)
 			modified_edges.append((u, v))
+			marked.extend([u, v])
 
 		else:
 			# add it and get all neighbours
@@ -108,6 +117,9 @@ def get_edges(edges, G):
 					elif node_v in G.adj[node_u]:
 						continue
 					modified_edges.append((node_u, node_v))
+					marked.extend([node_u, node_v])
+	
+	modified_edges = list({tuple(item) for item in map(sorted, modified_edges)})
 	return modified_edges
 
 
