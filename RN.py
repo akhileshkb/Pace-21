@@ -53,8 +53,9 @@ def RN(G, k_min=1, k_max=5):
 		k_min (Int): Hyperparameter
 		k_max (Int): Hyperparameter
 	"""
-	k, j = randint(k_min, k_max), 1
+	# k, j = randint(k_min, k_max), 1
 	v, n = list(G.nodes), len(G.nodes)
+	k, j = int(n**0.5), 1
 	v.sort(key=lambda x: len(G.adj[x]), reverse=True)
 	c = [{x} for x in v[:k]]
 	# print(c)
@@ -74,20 +75,20 @@ def RN(G, k_min=1, k_max=5):
 			j += 1
 		c[index] = c[index] | {v[i]}
 
-	print(c)
-	return reduce(lambda x, y: x | y, c)
+	# print(c)
+	return c,reduce(lambda x, y: x | y, c)
 
 
-G = {
-	0: {1, 2, 3},
-	1: {0, 2},
-	2: {0, 1, 3},
-	3: {0, 2},
-	4: {0, 5, 6},
-	5: {4, 6},
-	6: {2, 4, 5}
-}
-G = nx.Graph(G)
+# G = {
+# 	0: {1, 2, 3},
+# 	1: {0, 2},
+# 	2: {0, 1, 3},
+# 	3: {0, 2},
+# 	4: {0, 5, 6},
+# 	5: {4, 6},
+# 	6: {2, 4, 5}
+# }
+# G = nx.Graph(G)
 
 
-print(RN(G))
+# print(RN(G))
