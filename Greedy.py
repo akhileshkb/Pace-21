@@ -93,7 +93,7 @@ def get_edges(edges, G):
 	# run(karde)
 	for edge in edges:
 		u, v, _cost = edge
-		if time.time() - start_time > 500:
+		if time.time() - start_time > 120:
 			break
 		if u in marked:
 			continue
