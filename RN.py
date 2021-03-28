@@ -79,30 +79,6 @@ def RN(G, k_min=1, k_max=5):
 	return c,reduce(lambda x, y: x | y, c)
 
 
-def get_edges(C):
-	edges = []
-	for cluster in C:
-		cluster = list(cluster)
-		for i, u in enumerate(cluster):
-			for j, v in enumerate(cluster):
-				if i >= j:
-					continue
-				edges.append((u, v))
-
-	return edges
-
-
-def RN_K(G, C):
-	cur = set(G.edges)
-	final = set(get_edges(C))
-
-	edges_to_delete = final - cur
-	edges_to_add = cur - final
-
-	return len(edges_to_add) + len(edges_to_delete)
-
-
-
 # G = {
 # 	0: {1, 2, 3},
 # 	1: {0, 2},
